@@ -1,10 +1,19 @@
-import type { MetaFunction } from "@remix-run/node";
+import { json, LoaderFunction, type MetaFunction } from "@remix-run/node";
+import { getData } from "~/lib/service.server";
 
 export const meta: MetaFunction = () => {
   return [
     { title: "New Remix App" },
     { name: "description", content: "Welcome to Remix!" },
   ];
+};
+
+export const getRandomNumber = () => {
+  return getData().data.randomNumber;
+};
+
+export const loader: LoaderFunction = () => {
+  return json({ randomNumber: getRandomNumber() });
 };
 
 export default function Index() {
